@@ -9,7 +9,7 @@ const sendResponseToController = async (correlationId, result) => {
   try {
     // Enviar a resposta para o tópico 'controller_responses'
     await producer.send({
-      topic: 'controller_responses', //TODO: precisamos criar esse TOPICO ainda.. 
+      topic: 'controller_responses',  
       messages: [{
         value: JSON.stringify({ correlationId, result })
       }]

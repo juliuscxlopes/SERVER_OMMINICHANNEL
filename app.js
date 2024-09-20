@@ -2,6 +2,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const { connectKafka } = require('./src/config/kafka');
 const attendantsRoutes = require('./src/routes/attendantsRoutes/authRoutes');
+const { startRegisterConsumers } = require('./src/consumers/attendantsConsumers/consumersRegister/registerConsumers');
+const { startLoginConsumers } = require('./src/consumers/attendantsConsumers/consumersLogin/loginConsumers');
+const { startConsumers } = require('./src/consumers/attendantsConsumers/consumersLogin/responseConsumer');
 
 dotenv.config();
 
@@ -29,6 +32,10 @@ app.listen(port, async () => {
     // Conectar ao Kafka
     await connectKafka();
     console.log('Conectado ao Kafka');
+
+    // Iniciar consumidores
+    await startConsumers([startRegisterConsumers, startLoginConsumers, startResponseConsumer]);
+    console.log('Todos os consumidores Kafka iniciados');
 
   } catch (error) {
     console.error('Erro ao conectar ao Kafka ou iniciar consumidores:', error.message);
