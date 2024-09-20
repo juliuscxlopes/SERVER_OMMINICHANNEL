@@ -1,3 +1,4 @@
+//startResponseConsumer.js
 const { startResponseConsumer, registerActiveRequest } = require('../../../controllers/attendants/login/controllerResLogin');
 
 // Função para iniciar os consumidores de resposta
