@@ -1,8 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const { connectKafka } = require('./src/config/kafka'); // Ajuste para a configuração Kafka
-const { startRegisterConsumers } = require('./src/consumers/attendantsConsumers/registerConsumers'); // Ajuste para a inicialização dos consumidores Kafka
-const { startLoginConsumers } = require('./src/consumers/attendantsConsumers/loginConsumers');
+const { connectKafka } = require('./src/config/kafka');
 const attendantsRoutes = require('./src/routes/attendantsRoutes/authRoutes');
 
 dotenv.config();
@@ -16,6 +14,13 @@ app.use(express.json());
 // Rotas
 app.use('/attendants', attendantsRoutes);
 
+// Função para iniciar consumidores
+const startConsumers = async (consumers) => {
+  for (const consumer of consumers) {
+    await consumer(); // Chama a função de cada consumidor
+  }
+};
+
 // Iniciar servidor e conectar ao Kafka
 app.listen(port, async () => {
   console.log(`Server is running on port ${port}`);
@@ -26,8 +31,13 @@ app.listen(port, async () => {
     console.log('Conectado ao Kafka');
 
     // Iniciar consumidores Kafka
-    startRegisterConsumers();
-    startLoginConsumers();
+    const consumers = [
+      require('./src/consumers/attendantsConsumers/consumersRegister/registerConsumers').startRegisterConsumers,
+      require('./src/consumers/attendantsConsumers/consumersLogin/loginConsumers').startLoginConsumers,
+      require('./src/consumers/attendantsConsumers/consumersLogin/responseConsumer').startConsumers,
+    ];
+
+    await startConsumers(consumers);
     console.log('Consumidores Kafka iniciados');
 
   } catch (error) {

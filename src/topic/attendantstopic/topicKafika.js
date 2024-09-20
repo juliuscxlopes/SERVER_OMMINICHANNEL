@@ -35,5 +35,10 @@ const createTopic = async (topicName) => {
   }
 };
 
-// Criar o tópico 'db_message'
-createTopic('db_message').catch(console.error);
+// Criar o tópico 'db_message' e 'controller_responses'
+const createTopics = async () => {
+  await createTopic('db_message');
+  await createTopic('controller_responses');
+};
+
+createTopics().catch(console.error);

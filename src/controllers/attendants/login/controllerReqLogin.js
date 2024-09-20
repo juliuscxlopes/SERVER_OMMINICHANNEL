@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
-const sendMessage = require('../services/producer');
-const { registerResponse } = require('../consumers/responseConsumer');
+const sendMessage = require('../../../service/producer');
+const { registerResponse } = require('../../../consumers/attendantsConsumers/consumersLogin/responseConsumer');
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;

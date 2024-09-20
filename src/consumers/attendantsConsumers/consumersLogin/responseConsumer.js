@@ -1,4 +1,4 @@
-const { startResponseConsumer, registerActiveRequest } = require('../controllers/responseController');
+const { startResponseConsumer, registerActiveRequest } = require('../../../controllers/attendants/login/controllerResLogin');
 
 // Função para iniciar os consumidores de resposta
 const startConsumers = () => {
