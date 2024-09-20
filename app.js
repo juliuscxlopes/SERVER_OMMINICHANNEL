@@ -30,16 +30,6 @@ app.listen(port, async () => {
     await connectKafka();
     console.log('Conectado ao Kafka');
 
-    // Iniciar consumidores Kafka
-    const consumers = [
-      require('./src/consumers/attendantsConsumers/consumersRegister/registerConsumers').startRegisterConsumers,
-      require('./src/consumers/attendantsConsumers/consumersLogin/loginConsumers').startLoginConsumers,
-      require('./src/consumers/attendantsConsumers/consumersLogin/responseConsumer').startConsumers,
-    ];
-
-    await startConsumers(consumers);
-    console.log('Consumidores Kafka iniciados');
-
   } catch (error) {
     console.error('Erro ao conectar ao Kafka ou iniciar consumidores:', error.message);
   }
