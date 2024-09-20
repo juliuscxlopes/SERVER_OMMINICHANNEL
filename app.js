@@ -34,7 +34,7 @@ app.listen(port, async () => {
     console.log('Conectado ao Kafka');
 
     // Iniciar consumidores
-    await startConsumers([startRegisterConsumers, startLoginConsumers, startResponseConsumer]);
+    await startConsumers([startRegisterConsumers, startLoginConsumers]);
     console.log('Todos os consumidores Kafka iniciados');
 
   } catch (error) {
