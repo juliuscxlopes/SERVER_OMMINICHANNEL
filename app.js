@@ -16,12 +16,6 @@ app.use(express.json());
 // Rotas
 app.use('/attendants', attendantsRoutes);
 
-// Função para iniciar consumidores
-const startConsumers = async (consumers) => {
-  for (const consumer of consumers) {
-    await consumer(); // Chama a função de cada consumidor
-  }
-};
 
 // Iniciar servidor e conectar ao Kafka
 app.listen(port, async () => {
